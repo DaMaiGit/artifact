@@ -69,7 +69,7 @@ Google的AI框架[TensorFlow](https://www.tensorflow.org/)能够帮助开发者�
 
 face-api就已经帮助我们已经做完了以上三个步骤，为我们提供了人脸识别的模型，并封装成了简易的api，帮助开发者在前端项目上方便的使用人脸识别的技术。其中蓝色的部分则是face-api替我们完成的任务。
 
-<img src="https://user-images.githubusercontent.com/59545441/74007918-7b52f380-49ba-11ea-9dad-ff3c802e8e4f.png" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/DaMaiGit/artifact/master/image/1.png" style="zoom:50%;" />
 
 
 

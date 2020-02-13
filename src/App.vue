@@ -84,6 +84,7 @@ export default {
     getImageUrl:async function(){
       let file = this.$refs.fileInput.files[0]
       if (file!=undefined && file!=null){
+        this.btnText = "解析图片中..."
         this.fileUrl = window.URL.createObjectURL(file)
         if (!this.isPC()){
           let orientation;
@@ -135,7 +136,24 @@ export default {
           })
         } else {
           this.fileUrl = window.URL.createObjectURL(file)
-          this.startRecognition()
+          let reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = async (e)=> {
+            let uploadBase64 = new Image();
+            uploadBase64.src = e.target.result
+            let that = this
+            uploadBase64.onload = async function () {
+              let canvas = document.createElement("canvas")
+              canvas.width = this.width
+              canvas.height = this.height
+              let ctx = canvas.getContext("2d")
+              let width = this.width
+              let height = this.height
+              ctx.drawImage(uploadBase64, 0, 0, width, height)
+              that.startRecognition(canvas)
+            }
+          }
+
         }
 
       }
@@ -167,9 +185,6 @@ export default {
     startRecognition:async function (canvas) {
       try {
         this.btnText = "识别中..."
-        if (canvas==undefined || canvas==null){
-          canvas =await faceApi.createCanvasFromMedia(this.$refs.peopleImg.image)
-        }
         const landmarks = await faceApi.detectSingleFace(canvas).withFaceLandmarks()
         // faceApi.draw.drawFaceLandmarks(canvas,landmarks.landmarks)
         // canvas.toBlob(function(blob){
